@@ -281,7 +281,10 @@ async function sendMessage() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    contents: geminiMessages
+                    contents: geminiMessages,
+                      generationConfig: {
+                      maxOutputTokens: 300
+                  }
                 })
             }
         );
