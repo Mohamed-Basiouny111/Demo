@@ -4,7 +4,8 @@
 // ===============================
 
 // ⚠️ ضع مفتاح Gemini هنا
- const API_KEY = "AIzaSyDZdOLgiYgjgoBd3LitkUh-VUxhsvq7DH8";
+ const API_KEY = "AIzaSyCTThrJjvl9Gz9CVp7jU0vk_cnFC1BCArs";
+
 // const API_KEY = "AIzaSyBPxFTQjJ4xTbaoWma2bPzVnKzK__ObOxQ";
 
 // موديل Gemini
