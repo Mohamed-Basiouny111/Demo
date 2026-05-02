@@ -4,12 +4,12 @@
 // ===============================
 
 // ⚠️ ضع مفتاح Gemini هنا
-// const API_KEY = "AIzaSyDZdOLgiYgjgoBd3LitkUh-VUxhsvq7DH8";
-const API_KEY = "AIzaSyBPxFTQjJ4xTbaoWma2bPzVnKzK__ObOxQ";
+ const API_KEY = "AIzaSyDZdOLgiYgjgoBd3LitkUh-VUxhsvq7DH8";
+// const API_KEY = "AIzaSyBPxFTQjJ4xTbaoWma2bPzVnKzK__ObOxQ";
 
 // موديل Gemini
-// const MODEL = "gemini-2.5-flash";
-const MODEL = "gemini-2.5-pro";
+const MODEL = "gemini-2.5-flash";
+// const MODEL = "gemini-2.5-pro";
 // رسائل المحادثة
 let messages = [
     { role: "system", content: "You are a helpful assistant." }
