@@ -4,7 +4,7 @@
 // ===============================
 
 // ⚠️ ضع مفتاح Gemini هنا
- const API_KEY = "AIzaSyBf3qyqstkbPxiQ4RMho6xu9bpRj_QKz1c";
+ const API_KEY = "AIzaSyDMuAXzAqGwfnuCN29UcXMwxXz8_bF6Loo";
 
 // const API_KEY = "AIzaSyBPxFTQjJ4xTbaoWma2bPzVnKzK__ObOxQ";
 
@@ -283,27 +283,85 @@ async function sendMessage() {
                 },
                 body: JSON.stringify({
                     contents: geminiMessages,
-                      generationConfig: {
-                      maxOutputTokens: 300
-                  }
+
+                    generationConfig: {
+                        maxOutputTokens: 120,   // رد قصير
+                        temperature: 0.7
+                    },
+
+                    systemInstruction: {
+                        parts: [{
+                            text: "Answer briefly, clearly, and directly. Use short paragraphs. Avoid symbols like ** # * markdown."
+                        }]
+                    }
                 })
             }
         );
 
         const data = await resp.json();
 
-        const fullResponse =
+        let fullResponse =
             data.candidates?.[0]?.content?.parts?.[0]?.text
             || "No response";
 
-        // إزالة مؤشر الكتابة
+        // ===============================
+        // تنظيف النص من الرموز
+        // ===============================
+        fullResponse = fullResponse
+
+            // إزالة **
+            .replace(/\*\*/g, '')
+
+            // إزالة *
+            .replace(/\*/g, '')
+
+            // إزالة ###
+            .replace(/###/g, '')
+
+            // إزالة ##
+            .replace(/##/g, '')
+
+            // إزالة #
+            .replace(/#/g, '')
+
+            // إزالة `
+            .replace(/`/g, '')
+
+            // إزالة > quote
+            .replace(/^>\s?/gm, '')
+
+            // إزالة - فى أول السطر
+            .replace(/^\-\s?/gm, '')
+
+            // إزالة ترقيم غريب
+            .replace(/^\d+\.\s?/gm, '')
+
+            // ترتيب المسافات
+            .replace(/\n{3,}/g, '\n\n')
+
+            .trim();
+
+
+        // ===============================
+        // كتابة الرد بسلاسة حرف حرف
+        // ===============================
         const typing =
             botMessageDiv.querySelector('.typing-indicator');
 
         if (typing) typing.remove();
 
         responseText.style.display = 'inline';
-        responseText.textContent = fullResponse;
+
+        responseText.textContent = '';
+
+        for (let i = 0; i < fullResponse.length; i++) {
+
+            responseText.textContent += fullResponse[i];
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            await new Promise(r => setTimeout(r, 8));
+        }
 
         chatBox.scrollTop = chatBox.scrollHeight;
 
